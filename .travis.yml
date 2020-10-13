@@ -1,0 +1,20 @@
+dist: trusty
+language: python
+python:
+  - "3.6"      # current default Python on Travis CI
+  - "3.7"
+  - "3.8"
+
+before_install:
+  # - git config --global user.email "nitinthewiz@gmail.com"
+  # - git config --global user.name "Nitin Khanna"
+
+install:
+  - pip install -r requirements.txt
+
+# branches:
+#   only:
+  # - master
+
+# command to run tests
+script: python3 task.py

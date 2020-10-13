@@ -1,0 +1,297 @@
+
+TEMP 
+
+{
+    "region":"ALL", 
+    "title": "Cases", 
+    "value": "",
+    "DeltaValue": "",
+    "SourceName": ""
+}
+
+As input 
+
+# Write the values as keys of dict from which to pull
+{"type":"dataSingle", "areaTable":"CountryData", "region": "World", "title": "Cases", "data_needed": {"value": "Cases", "deltaValue":"Cases Today", "sourceName":"sourceName"}}
+{"type":"dataSingle", "areaTable":"CountryData", "region": "World", "title": "Deaths", "data_needed": {"value": "Deaths", "deltaValue":"Deaths Today", "sourceName":"sourceName"}}
+{"type":"dataSingle", "areaTable":"CountryData", "region": "World", "title": "Recovered", "data_needed": {"value": "Recovered", "deltaValue":"Recovered Today", "sourceName":"sourceName"}}
+{"type":"dataSingle", "areaTable":"CountryData","region": "USA", "title": "Cases", "data_needed": {"value": "Cases", "deltaValue":"Cases Today", "sourceName":"sourceName"}}
+{"type":"dataSingle", "areaTable":"CountryData", "region": "USA", "title": "Deaths", "data_needed": {"value": "Deaths", "deltaValue":"Deaths Today", "sourceName":"sourceName"}}
+{"type":"dataSingle", "areaTable":"CountryData", "region": "USA", "title": "Recovered", "data_needed": {"value": "Recovered", "deltaValue":"Recovered Today", "sourceName":"sourceName"}}
+{"type":"dataSingle", "areaTable":"CountryData", "region": "India", "title": "Cases", "data_needed": {"value": "Cases", "deltaValue":"Cases Today", "sourceName":"sourceName"}}
+{"type":"dataSingle", "areaTable":"CountryData", "region": "India", "title": "Deaths", "data_needed": {"value": "Deaths", "deltaValue":"Deaths Today", "sourceName":"sourceName"}}
+{"type":"dataSingle", "areaTable":"CountryData", "region": "India", "title": "Recovered", "data_needed": {"value": "Recovered", "deltaValue":"Recovered Today", "sourceName":"sourceName"}}
+{"type":"dataTable", "areaTable":"CountryData", "sortBy":"Cases", "listHowMany":"6", "title": "Cases", "data_needed": {"region": "region", "value": "Cases", "deltaValue":"Cases Today", "sourceName":"sourceName"}}
+{"type":"dataTable", "areaTable":"CountryData", "sortBy":"Cases", "listHowMany":"6", "title": "Deaths", "data_needed": {"region": "region", "value": "Deaths", "deltaValue":"Deaths Today", "sourceName":"sourceName"}}
+{"type":"dataTable", "areaTable":"CountryData", "sortBy":"Cases", "listHowMany":"6", "title": "Recovered", "data_needed": {"region": "region", "value": "Recovered", "deltaValue":"Recovered Today", "sourceName":"sourceName"}}
+{"type":"dataTable", "areaTable":"CountryData", "sortBy":"Deaths", "listHowMany":"6", "title": "Cases", "data_needed": {"region": "region", "value": "Cases", "deltaValue":"Cases Today", "sourceName":"sourceName"}}
+{"type":"dataSingle", "areaTable":"StateData_US", "region": "California", "title": "Cases", "data_needed": {"value": "Cases", "deltaValue":"Cases Today", "sourceName":"sourceName"}}
+{"type":"dataTable", "areaTable":"StateData_US", "sortBy":"Cases", "listHowMany":"6", "title": "Cases", "data_needed": {"region": "region", "value": "Cases", "deltaValue":"Cases Today", "sourceName":"sourceName"}}
+
+
+
+{"type:":"dataSingle", "region": "World", "title": "Deaths"}
+{"type:":"dataSingle", "region": "World", "title": "Recovered"}
+{"type:":"dataSingle", "region": "USA", "title": "Recovered"}
+
+{"type:":"dataTable", "sortBy":"Cases", "ListHowMany":"6", "region": "USA", "title": "Recovered"}
+{"type:":"dataTable", "sortBy":"Cases", "ListHowMany":"6", "region": data["region"], "title": "Cases", "value": data["Cases"], "deltaValue":data["Cases Today"], "sourceName":data["sourceName"]}
+
+
+#Dict format for each country 
+{
+    'region': 'USA', 
+    'Cases': 7940037, 
+    'Deaths': 219232, 
+    'Recovered': 5084203, 
+    'Active Cases': 2636602, 
+    'Critical': 14777, 
+    'Tests': 117473751, 
+    'Updated': Timestamp('2020-10-10 21:59:33.591000'), 
+    'Cases Today': 45559, 
+    'Deaths Today': 585, 
+    'Recovered Today': 19903, 
+    'sourceName': 
+    'Source: Worldometer / disease.sh'
+}
+
+
+[
+    {'region': 'USA', 'Cases': 7977660, 'Deaths': 219600, 'Recovered': 5119331, 'Active Cases': 2638729, 'Critical': 14717, 'Tests': 118334628, 'Updated': Timestamp('2020-10-11 19:40:18.088000'), 'Cases Today': 29370, 'Deaths Today': 230, 'Recovered Today': 29489, 'sourceName': 'Source: Worldometer / disease.sh'}, 
+    {'region': 'India', 'Cases': 7118770, 'Deaths': 109179, 'Recovered': 6145918, 'Active Cases': 863673, 'Critical': 8944, 'Tests': 86877242, 'Updated': Timestamp('2020-10-11 19:40:18.089000'), 'Cases Today': 67227, 'Deaths Today': 808, 'Recovered Today': 71055, 'sourceName': 'Source: Worldometer / disease.sh'}, 
+]
+
+
+
+
+{
+    "country": "Afghanistan",
+    "county": null,
+    "updatedAt": "2020-10-07 04:23:40",
+    "stats": {
+      "confirmed": 39486,
+      "deaths": 1467,
+      "recovered": 32977
+    },
+    "coordinates": {
+      "latitude": "33.93911",
+      "longitude": "67.709953"
+    },
+    "province": null
+  }
+
+
+===
+
+All Countries 
+
+World
+Afghanistan
+Albania
+Algeria
+Andorra
+Angola
+Anguilla
+Antigua and Barbuda
+Argentina
+Armenia
+Aruba
+Australia
+Austria
+Azerbaijan
+Bahamas
+Bahrain
+Bangladesh
+Barbados
+Belarus
+Belgium
+Belize
+Benin
+Bermuda
+Bhutan
+Bolivia
+Bosnia
+Botswana
+Brazil
+British Virgin Islands
+Brunei
+Bulgaria
+Burkina Faso
+Burundi
+Cabo Verde
+Cambodia
+Cameroon
+Canada
+Caribbean Netherlands
+Cayman Islands
+Central African Republic
+Chad
+Channel Islands
+Chile
+China
+Colombia
+Comoros
+Congo
+Costa Rica
+Croatia
+Cuba
+Curaçao
+Cyprus
+Czechia
+Côte d'Ivoire
+DRC
+Denmark
+Diamond Princess
+Djibouti
+Dominica
+Dominican Republic
+Ecuador
+Egypt
+El Salvador
+Equatorial Guinea
+Eritrea
+Estonia
+Ethiopia
+Falkland Islands (Malvinas)
+Faroe Islands
+Fiji
+Finland
+France
+French Guiana
+French Polynesia
+Gabon
+Gambia
+Georgia
+Germany
+Ghana
+Gibraltar
+Greece
+Greenland
+Grenada
+Guadeloupe
+Guatemala
+Guinea
+Guinea-Bissau
+Guyana
+Haiti
+Holy See (Vatican City State)
+Honduras
+Hong Kong
+Hungary
+Iceland
+India
+Indonesia
+Iran
+Iraq
+Ireland
+Isle of Man
+Israel
+Italy
+Jamaica
+Japan
+Jordan
+Kazakhstan
+Kenya
+Kuwait
+Kyrgyzstan
+Lao People's Democratic Republic
+Latvia
+Lebanon
+Lesotho
+Liberia
+Libyan Arab Jamahiriya
+Liechtenstein
+Lithuania
+Luxembourg
+MS Zaandam
+Macao
+Macedonia
+Madagascar
+Malawi
+Malaysia
+Maldives
+Mali
+Malta
+Martinique
+Mauritania
+Mauritius
+Mayotte
+Mexico
+Moldova
+Monaco
+Mongolia
+Montenegro
+Montserrat
+Morocco
+Mozambique
+Myanmar
+Namibia
+Nepal
+Netherlands
+New Caledonia
+New Zealand
+Nicaragua
+Niger
+Nigeria
+Norway
+Oman
+Pakistan
+Palestine
+Panama
+Papua New Guinea
+Paraguay
+Peru
+Philippines
+Poland
+Portugal
+Qatar
+Romania
+Russia
+Rwanda
+Réunion
+S. Korea
+Saint Kitts and Nevis
+Saint Lucia
+Saint Martin
+Saint Pierre Miquelon
+Saint Vincent and the Grenadines
+San Marino
+Sao Tome and Principe
+Saudi Arabia
+Senegal
+Serbia
+Seychelles
+Sierra Leone
+Singapore
+Sint Maarten
+Slovakia
+Slovenia
+Solomon Islands
+Somalia
+South Africa
+South Sudan
+Spain
+Sri Lanka
+St. Barth
+Sudan
+Suriname
+Swaziland
+Sweden
+Switzerland
+Syrian Arab Republic
+Taiwan
+Tajikistan
+Tanzania
+Thailand
+Timor-Leste
+Togo
+Trinidad and Tobago
+Tunisia
+Turkey
+Turks and Caicos Islands
+UAE
+UK
+USA
+Uganda
+Ukraine
+Uruguay
