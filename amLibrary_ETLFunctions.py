@@ -21,8 +21,11 @@ def getSingleByRegion(allData, regionToGet, areaTable):
 def topListByTitle(allData, sortBy, filterBy, listHowMany):
 	df = pd.DataFrame(allData)
 	df_filtered = df.loc[df['areaTable'].isin([filterBy])] #Filters by US state or Country data 
-	# df_filtered = df.query('areaTable == filterBy')
-	rslt_df = df_filtered.sort_values(by = sortBy , ascending = False).head(listHowMany)
+	sorted_df = df_filtered.sort_values(by = sortBy , ascending = False)
+	if 'World' in sorted_df.values: #To skip first value if World is in list, so hard coding for country vs states list 
+		rslt_df = sorted_df.head(listHowMany+1)[1:] 
+	else:
+		rslt_df = sorted_df.head(listHowMany)
 	top_list_values = rslt_df.values.tolist()
 	top_list_headers = rslt_df.columns.tolist()
 
@@ -45,7 +48,10 @@ def dataSingleParse(payloadToCheck, dataToFillFrom):
 	# In payload the values are keys to data dump dict
 	for key, value in payloadToCheck['data_needed'].items():
 		if value in dataToFillFrom: 
-			outputDict[key] = dataToFillFrom[value] 
+			if isinstance(dataToFillFrom[value], int):
+				outputDict[key] = ("{:,}".format(dataToFillFrom[value])) 
+			else:
+				outputDict[key] = dataToFillFrom[value] 
 	#Adding remaining values manually
 	outputDict['type'] = payloadToCheck['type']
 	outputDict['title'] = payloadToCheck['title']
@@ -54,13 +60,27 @@ def dataSingleParse(payloadToCheck, dataToFillFrom):
 
 # Matching payload from dataTable
 def dataTableParse(payloadToCheck, dataListToFillFrom):
-	outputList = []
+	outputDict = {
+		"table_info": {
+			"type":payloadToCheck['type'],
+			"title":payloadToCheck['title'],
+			"sourceName":"",
+		},
+		"rows" : []
+	}
+	dataList = []
+	keyTemp = 0
 	for dataToFillFrom in dataListToFillFrom: 
-		tempDict = {}
+		tempDict = {}		
 		for key, value in payloadToCheck['data_needed'].items():
 			if value in dataToFillFrom: 
-				tempDict[key] = dataToFillFrom[value]
-		tempDict['type'] = payloadToCheck['type']
-		tempDict['title'] = payloadToCheck['title']
-		outputList.append(tempDict)
-	return outputList
+				if isinstance(dataToFillFrom[value], int):
+					tempDict[key] = ("{:,}".format(dataToFillFrom[value])) 
+				else:
+					tempDict[key] = dataToFillFrom[value]
+		tempDict['key'] = str(keyTemp) 
+		keyTemp = keyTemp + 1 
+		dataList.append(tempDict)
+	outputDict["rows"] = dataList
+	outputDict["table_info"]["sourceName"] = dataList[0]["sourceName"]
+	return outputDict

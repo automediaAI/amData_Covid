@@ -28,7 +28,7 @@ async def get_allCountries():
 			"region": data.name,
 			"Cases":data.cases,
 			"Deaths":data.deaths,
-			"Recovered":data.recoveries,
+			"Recovered":data.recoveries, 
 			"Active Cases":data.active,
 			"Critical":data.critical,
 			"Tests":data.tests,
