@@ -22,14 +22,14 @@ airtable = Airtable(base_key, table_name, api_key)
 airTest = airtable.get_all(view='Service - amData', sort='Series') #Temp, move down later
 
 ### DATA UPLOAD FUNCTIONS
-#Uploads single json, or list to data_jasp of record ID as given
+#Uploads single json, or list to data_output of record ID as given
 def uploadData(inputDictList, recToUpdate):
 	recID = recToUpdate
 	if isinstance(inputDictList, dict):
-		fields = {'data_jasp': json.dumps(inputDictList)}
-		# fields = {'data_jasp': str(inputDictList)} #Seems if I do str thats same too
+		fields = {'data_output': json.dumps(inputDictList)}
+		# fields = {'data_output': str(inputDictList)} #Seems if I do str thats same too
 	else:
-		fields = {'data_jasp': str(inputDictList)}
+		fields = {'data_output': str(inputDictList)}
 	airtable.update(recID, fields)
 
 ## Runner, Loops through the Airtable table
@@ -62,6 +62,6 @@ def updateLoop(inputMasterDict):
 				uploadData(data_toUpload, rec_ofAsked)
 
 			else:
-				fields = {'data_jasp': "ERROR - Type incorrect"}
+				fields = {'data_output': "ERROR - Type incorrect"}
 				airtable.update(rec_ofAsked, fields)
 
