@@ -17,7 +17,7 @@ from datetime import datetime
 base_key = os.environ.get("PRIVATE_BASE_KEY")
 table_name_dump = os.environ.get("PRIVATE_TABLE_NAME_DUMP")
 api_key = os.environ.get("PRIVATE_API_KEY")
-airtable = Airtable(base_key, table_name_dump, api_key)
+airtable_2 = Airtable(base_key, table_name_dump, api_key)
 
 ## Making API call to get data 
 dataPulled = get_DiseaseData()
