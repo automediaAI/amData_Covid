@@ -19,8 +19,6 @@ table_name = os.environ.get("PRIVATE_TABLE_NAME")
 api_key = os.environ.get("PRIVATE_API_KEY")
 airtable = Airtable(base_key, table_name, api_key)
 
-airTest = airtable.get_all(view='Service - amData', sort='Series') #Temp, move down later
-
 ### DATA UPLOAD FUNCTIONS
 #Uploads single json, or list to data_output of record ID as given
 def uploadData(inputDictList, recToUpdate):
