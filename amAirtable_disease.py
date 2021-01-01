@@ -41,6 +41,7 @@ def updateLoop(inputMasterDict):
 			payload_json = json.loads(payload_native)
 			type_asked = payload_json["type"] #Single data, or table of data 
 			rec_ofAsked = i["id"]
+			series_workedon = i["fields"]["Series"] #to use for debug to check where failing
 
 			#Different functions if List or Single data asked for
 			if type_asked == "dataSingle":
@@ -63,3 +64,4 @@ def updateLoop(inputMasterDict):
 				fields = {'data_output': "ERROR - Type incorrect"}
 				airtable.update(rec_ofAsked, fields)
 
+#Testing

@@ -16,6 +16,7 @@ def getSingleByRegion(allData, regionToGet, areaTable):
 	for i in allData:
 		if (i['region'] == regionToGet) and (i['areaTable'] == areaTable):
 			return i 
+	return [] #adding to return blank in case region not found, as error check
 
 # Get Top x by Use case
 def topListByTitle(allData, sortBy, filterBy, listHowMany):
