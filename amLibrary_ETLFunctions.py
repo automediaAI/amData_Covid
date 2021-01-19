@@ -24,7 +24,7 @@ def topListByTitle(allData, sortBy, filterBy, listHowMany):
 	df_filtered = df.loc[df['areaTable'].isin([filterBy])] #Filters by US state or Country data 
 	sorted_df = df_filtered.sort_values(by = sortBy , ascending = False)
 	if 'World' in sorted_df.values: #To skip first value if World is in list, so hard coding for country vs states list 
-		rslt_df = sorted_df.head(listHowMany+1)[1:] 
+		rslt_df = sorted_df.head(listHowMany+1)[1:]
 	else:
 		rslt_df = sorted_df.head(listHowMany)
 	top_list_values = rslt_df.values.tolist()

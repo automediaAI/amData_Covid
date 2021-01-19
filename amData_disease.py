@@ -26,16 +26,16 @@ async def get_allCountries():
 		dataFormatted.append({
 			"areaTable":"CountryData",
 			"region": data.name,
-			"Cases":data.cases,
-			"Deaths":data.deaths,
-			"Recovered":data.recoveries, 
-			"Active Cases":data.active,
-			"Critical":data.critical,
-			"Tests":data.tests,
-			"Updated":data.updated,
-			"Cases Today":data.today.cases,
-			"Deaths Today":data.today.deaths,
-			"Recovered Today":data.today.recoveries,
+			"Cases":int(data.cases),
+			"Deaths":int(data.deaths),
+			"Recovered":int(data.recoveries), 
+			"Active Cases":int(data.active),
+			"Critical":int(data.critical),
+			"Tests":int(data.tests),
+			"Updated":str(data.updated),
+			"Cases Today":int(data.today.cases),
+			"Deaths Today":int(data.today.deaths),
+			"Recovered Today":int(data.today.recoveries),
 			"sourceName": "Source: Worldometer / disease.sh", 
 		})
 	# await client.request_client.close() #close the ClientSession
@@ -50,15 +50,15 @@ async def get_allStates():
 		dataFormatted.append({
 			"areaTable":"StateData_US",
 			"region": data.name,
-			"Cases":data.cases,
-			"Deaths":data.deaths,
+			"Cases":int(data.cases),
+			"Deaths":int(data.deaths),
 			# "Recovered":data.recoveries, #Data not av for states
-			"Active Cases":data.active,
+			"Active Cases":int(data.active),
 			# "Critical":data.critical,
-			"Tests":data.tests,
+			"Tests":int(data.tests),
 			# "Updated":data.updated,
-			"Cases Today":data.today.cases,
-			"Deaths Today":data.today.deaths,
+			"Cases Today":int(data.today.cases),
+			"Deaths Today":int(data.today.deaths),
 			# "Recovered Today":data.today.recoveries, #Data not av for states
 			"sourceName": "Source: Worldometer / disease.sh", 
 		})
@@ -72,16 +72,16 @@ async def get_WorldData():
 	dataFormatted.update ({
 			"areaTable":"CountryData",
 			"region": "World",
-			"Cases":data.cases,
-			"Deaths":data.deaths,
-			"Recovered":data.recoveries,
-			"Active Cases":data.active,
-			"Critical":data.critical,
-			"Tests":data.tests,
-			"Updated":data.updated,
-			"Cases Today":data.today.cases,
-			"Deaths Today":data.today.deaths,
-			"Recovered Today":data.today.recoveries,
+			"Cases":int(data.cases),
+			"Deaths":int(data.deaths),
+			"Recovered":int(data.recoveries),
+			"Active Cases":int(data.active),
+			"Critical":int(data.critical),
+			"Tests":int(data.tests),
+			"Updated":str(data.updated),
+			"Cases Today":int(data.today.cases),
+			"Deaths Today":int(data.today.deaths),
+			"Recovered Today":int(data.today.recoveries),
 			"sourceName": "Source: Worldometer / disease.sh", 
 	})
 	
@@ -91,8 +91,12 @@ async def get_WorldData():
 
 def get_DiseaseData():
 	dataAll = asyncio.get_event_loop().run_until_complete(get_allCountries()) #All countries
+	print ("Data Gathered for: All Countries ..")
 	dataAll.extend(asyncio.get_event_loop().run_until_complete(get_allStates())) #All US States
+	print ("Data Gathered for: All US States ..")
 	dataAll.append(asyncio.get_event_loop().run_until_complete(get_WorldData())) #Only World Data
+	print ("Data Gathered for: World ..")
+	print ("Data Gathered for all.")
 	#Client connection closing is done only on last API call within the functions
 
 	return dataAll

@@ -30,10 +30,11 @@ amService = 'amData_Covid'
 fields = {'UUID':UUID, 'time_pulled':time_pulled, 'data_output': str(dataPulled), 'input_payload':input_payload, 'amService':amService }
 # Upload
 airtable_2.insert(fields)
+print("Data uploaded to dump table.")
 
 ## Uploading real data to CMS
 updateLoop(dataPulled)
-
+print("Data updated in CMS per query.")
 
 ## Testing
 # print ('Data Pulled: ', dataPulled)
