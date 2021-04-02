@@ -25,10 +25,8 @@ airtable_data = Airtable(base_key, table_name_data, api_key_airtable)
 airtable_dump = Airtable(base_key, table_name_dump, api_key_airtable)
 
 ## Amazon S3 settings 
-# AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-# AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-AWS_ACCESS_KEY_ID = 'AKIAJG2RATLX4UP4SG5A'
-AWS_SECRET_ACCESS_KEY = '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' 
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 aws_region='us-west-1' #Manual while creating the bucket 
 
 s3 = boto3.client(

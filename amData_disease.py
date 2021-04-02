@@ -22,7 +22,12 @@ client = diseaseapi.Client().covid19
 def get_allCountries(queryName):
 	dataFormatted = []
 	# dataList = await client.all_countries() #get for a country
+	print ("Client", client)
+	print (dir(client))
+
 	dataList = client.all_countries() #get for a country
+	print ("Data list all countries: ", dataList)
+	print (dir(dataList))
 	for x in range(len(dataList)):
 		data = dataList[x]
 		dataFormatted.append({
@@ -74,13 +79,15 @@ def get_allUSStates(queryName):
 	return dataFormatted #List goes out
 
 #Function for pulling data for world, for all else use other of all data
-# async def get_WorldData(queryName):
-def get_WorldData(queryName):
+async def get_WorldData(queryName):
+# def get_WorldData(queryName):
 	dataFormatted = {}
-	print ("Client", client)
-	# data = await client.all() #get global data
-	data = client.all() #get global data
+	# print ("Client", client)
+	# print (dir(client))
+	data = await client.all() #get global data
+	# data = client.all() #get global data
 	print ("data: ", data)
+	print (dir(data))
 	dataFormatted.update ({
 			"areaTable":"CountryData",
 			"query_name": queryName,   #Name of record in amPayload table
@@ -98,8 +105,8 @@ def get_WorldData(queryName):
 			"sourceName": "Source: Worldometer / disease.sh", 
 	})
 	
-	# await client.request_client.close() #close the ClientSession
-	client.request_client.close() #close the ClientSession
+	await client.request_client.close() #close the ClientSession
+	# client.request_client.close() #close the ClientSession
 	dataFormatted_list = [dataFormatted] #JSON to list 
 	return dataFormatted_list #Single List goes out
 
@@ -125,3 +132,8 @@ def get_DiseaseData(payload_json, query_name):
 	# #Client connection closing is done only on last API call within the functions
 	# return dataAll
 
+# get_WorldData("test")
+# get_allCountries("test")
+# dataAll = asyncio.get_event_loop().run_until_complete(get_allCountries("test")) #All countries
+dataAll = asyncio.run(get_WorldData("test")) #All countries
+print(dataAll)
