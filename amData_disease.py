@@ -7,11 +7,13 @@
 #############
 ## Issue of certificates, solved using second bash command here - https://timonweb.com/python/fixing-certificate_verify_failed-error-when-trying-requests-html-out-on-mac/ 
 
+### WIP - Client session not being closed in this case, but code working. Need to ask tin on how to fix and if even needed 
 
 ## Declarations 
 import diseaseapi
 import asyncio
 import datetime
+import time
 
 #disease.sh object
 client = diseaseapi.Client().covid19
@@ -57,7 +59,7 @@ async def get_allCountries(queryName):
 			"Recovered Today":int(data.today.recoveries),
 			"sourceName": "Source: Worldometer / disease.sh", 
 		})
-	await client.request_client.close() #close the ClientSession
+	# await client.request_client.close() #close the ClientSession
 	return dataFormatted #List goes out
 
 # Function to get data of all states of USA 
@@ -82,7 +84,7 @@ async def get_allUSStates(queryName):
 			# "Recovered Today":data.today.recoveries, #Data not av for states
 			"sourceName": "Source: Worldometer / disease.sh", 
 		})
-	await client.request_client.close() #close the ClientSession
+	# await client.request_client.close() #close the ClientSession
 	return dataFormatted #List goes out
 
 
@@ -110,7 +112,7 @@ async def get_WorldData(queryName):
 			"sourceName": "Source: Worldometer / disease.sh", 
 	})
 	
-	await client.request_client.close() #close the ClientSession
+	# await client.request_client.close() #close the ClientSession
 	dataFormatted_list = [dataFormatted] #JSON to list 
 	return dataFormatted_list #Single List goes out
 
@@ -126,7 +128,7 @@ async def get_VaxWorldLatest(queryName):
 			"vax_latest":int(vax_latest),
 			"sourceName": "Source: Worldometer / disease.sh", 
 	})
-	await client.request_client.close() #close the ClientSession
+	# await client.request_client.close() #close the ClientSession
 	return dataFormatted #List goes out
 
 #Function for pulling Vaccine data for all countries
@@ -146,15 +148,17 @@ async def get_VaxAllCountriesLatest(queryName):
 			"areaTable":"Vaccine_AllCountries",
 			"query_name": queryName,   #Name of record in amPayload table
 			"region": data.country,
-			"vax_latest": timeline_data[0]['vax_value'],
+			"vax_latest": str(timeline_data[0]['vax_value']),
+			"sourceName": "Source: Worldometer / disease.sh", 
 		})
-	await client.request_client.close() #close the ClientSession
+	# await client.request_client.close() #close the ClientSession
+	# print ("Len of data_output: ", str(len(dataFormatted)))
 	return dataFormatted #List goes out
 
 #Function for pulling Vaccine data for all countries with a range across 15 days 
 async def get_VaxAllCountries(queryName):
 	dataFormatted = []
-	dataList = await client.vaccine_countries(15) #gets 15 day data by default, Alt 15
+	dataList = await client.vaccine_countries(7) #Getting 7 day data else hits airtable char limit for cell
 	for x in range(len(dataList)):
 		data = dataList[x]
 		timeline = data.timeline
@@ -168,9 +172,11 @@ async def get_VaxAllCountries(queryName):
 			"areaTable":"Vaccine_AllCountries",
 			"query_name": queryName,   #Name of record in amPayload table
 			"region": data.country,
-			"vax": timeline_data,
+			"vax": str(timeline_data),
+			"sourceName": "Source: Worldometer / disease.sh", 
 		})
-	await client.request_client.close() #close the ClientSession
+	# await client.request_client.close() #close the ClientSession
+	# print ("Len of data_output: ", str(len(dataFormatted)))
 	return dataFormatted #List goes out
 
 
@@ -186,6 +192,8 @@ def get_DiseaseData(payload_json, query_name):
 		data_pulled = asyncio.get_event_loop().run_until_complete(get_VaxAllCountries(query_name))
 	else:
 		data_pulled = []
+	# time.sleep( 1 )
+	# client.request_client.close()
 	return data_pulled
 
 	## OLDER CODE - Keep for now 
@@ -200,11 +208,18 @@ def get_DiseaseData(payload_json, query_name):
 
 ## Testing
 # dataAll = asyncio.get_event_loop().run_until_complete(get_WorldData("test")) #good 
-# dataAll = asyncio.get_event_loop().run_until_complete(get_allUSStates("test"))
-# dataAll = asyncio.get_event_loop().run_until_complete(get_allCountries("test"))
+# print(dataAll)
+# dataAll2 = asyncio.get_event_loop().run_until_complete(get_allUSStates("test"))
+# print(dataAll2)
+# dataAll3 = asyncio.get_event_loop().run_until_complete(get_allCountries("test"))
+# print(dataAll3)
+
+# client.request_client.close()
 # dataAll = asyncio.get_event_loop().run_until_complete(get_VaxAllCountriesLatest("test"))
 # dataAll = asyncio.get_event_loop().run_until_complete(get_VaxAllCountries("test"))
 # dataAll = asyncio.get_event_loop().run_until_complete(get_VaxWorldLatest("test"))
 # dataAll = get_DiseaseData({'endpoint':'allCountries'}, "test")
-# print(dataAll)
+
+
+
 

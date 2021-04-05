@@ -13,14 +13,14 @@ import boto3 #to upload larger files to S3
 from botocore.exceptions import ClientError
 from airtable import Airtable
 from datetime import date, datetime, timedelta
-from amData_disease import get_DiseaseData, get_WorldData, get_allCountries, get_allUSStates, get_VaxAllCountries
-import asyncio
+# from amData_disease import get_DiseaseData, get_WorldData, get_allCountries, get_allUSStates, get_VaxAllCountries
+from amData_disease import get_DiseaseData
 
 # Airtable settings 
 base_key = os.environ.get("PRIVATE_BASE_KEY")
 # table_name_data = os.environ.get("PRIVATE_TABLE_NAME_DATAPAYLOAD") #What to pull
 table_name_data = "amPayload_Data" #What to pull
-table_name_dump = os.environ.get("PRIVATE_TABLE_NAME_SERVICEDUMP") #Output dump
+table_name_dump = "serviceDataDump" #Output dump
 api_key_airtable = os.environ.get("PRIVATE_API_KEY")
 airtable_data = Airtable(base_key, table_name_data, api_key_airtable)
 airtable_dump = Airtable(base_key, table_name_dump, api_key_airtable)
@@ -46,6 +46,8 @@ def uploadData(inputDictList, recToUpdate):
 		# fields = {'data_output': str(inputDictList)} #Seems if I do str thats same too
 	else:
 		fields = {'output': str(inputDictList)}
+	print("Output value type: ", type(fields['output']))
+	print("Output value length: ", len(fields['output']))
 	airtable_data.update(recID, fields)
 
 # Dumping to service Dump after all is run
@@ -53,7 +55,7 @@ def dumpData(inputURL):
 	time_pulled = str(datetime.now())
 	amService = 'amData_CovidData'
 	data_output = str(inputURL)
-	fields = {'UUID':UUID, 'time_pulled':time_pulled, 'data_output': data_output, 'amService':amService }
+	fields = {'UUID':UUID, 'time_pulled':time_pulled, 'data_output': data_output, 'amService':'amData_Covid'}
 	airtable_dump.insert(fields)
 
 # # Dumping to service Dump after all is run
@@ -87,24 +89,8 @@ def updateDataLoop():
 				# Calling News service per ask
 				if service_name == 'diseasesh': #Only pulling if NewsAPI 	
 					print ("Entered loop")
-
-					### Tried repeating what get_DiseaseData does here directly - But same error 
-					# endpoint_name = payload_json['endpoint']
-					# if endpoint_name == "WorldData":
-					# 	data_pulled = asyncio.get_event_loop().run_until_complete(get_WorldData(query_name))
-					# elif endpoint_name == "allCountries":
-					# 	data_pulled = asyncio.get_event_loop().run_until_complete(get_allCountries(query_name))
-					# elif endpoint_name == "allUSStates":
-					# 	data_pulled = asyncio.get_event_loop().run_until_complete(get_allUSStates(query_name))
-					# elif endpoint_name == "VaxAllCountries":
-					# 	data_pulled = asyncio.get_event_loop().run_until_complete(get_VaxAllCountries(query_name))
-					# else:
-					# 	data_pulled = []
-					# row_output = data_pulled
-
 					row_output_unclean = get_DiseaseData(payload_json, query_name) #NewsAPI output for this call
 					row_output = row_output_unclean
-					# row_output = newsClean(row_output_unclean)
 				else:
 					row_output = "🚫Query requested is invalid"
 				# Appending rest
@@ -116,15 +102,15 @@ def updateDataLoop():
 				uploadData(data_toUpload, rec_ofAsked) #Upload back to Airtable 
 				print('Row complete..')
 	
-	# filename = (UUID+'.txt')
-	# #Creating a local text file 
-	# f = open(filename,"w")
-	# f.write( str(table_output) )
-	# f.close()
-	# url_s3_file = dumpToS3(filename) #uploading to S3 and getting file back
-	# dumpData(url_s3_file) #Adding final output to service dump
-	# os.remove(filename) #deleting file after upload
-	# print('Table complete.')
+	filename = (UUID+'.txt')
+	#Creating a local text file 
+	f = open(filename,"w")
+	f.write( str(table_output) )
+	f.close()
+	url_s3_file = dumpToS3(filename) #uploading to S3 and getting file back
+	dumpData(url_s3_file) #Adding final output to service dump
+	os.remove(filename) #deleting file after upload
+	print('Table complete.')
 
 print ('Entering loop.')
 
