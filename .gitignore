@@ -124,3 +124,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Rough files
+rough.py
+task_old.py
+amLibrary_ETLFunctions.py
+amAirtable_disease.py
+
+# Output files, local storage
+CovidData*.txt
