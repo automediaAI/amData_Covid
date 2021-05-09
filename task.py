@@ -46,8 +46,6 @@ def uploadData(inputDictList, recToUpdate):
 		# fields = {'data_output': str(inputDictList)} #Seems if I do str thats same too
 	else:
 		fields = {'output': str(inputDictList)}
-	print("Output value type: ", type(fields['output']))
-	print("Output value length: ", len(fields['output']))
 	airtable_data.update(recID, fields)
 
 # Dumping to service Dump after all is run
