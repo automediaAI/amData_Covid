@@ -23,7 +23,6 @@ disease.py==1.2.0
 docker-py==1.10.3
 docker-pycreds==0.2.1
 docopt==0.6.2
-en-core-web-sm==2.3.1
 fastzbarlight==0.0.14
 future==0.18.2
 go-vncdriver==0.4.19
