@@ -112,4 +112,9 @@ def updateDataLoop():
 
 print ('Entering loop.')
 
-updateDataLoop()
+try:
+    updateDataLoop()
+except:
+    pass
+
+
